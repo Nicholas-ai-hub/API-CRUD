@@ -111,6 +111,28 @@ class ImageManipulationController extends Controller
 
     //სურათის ზომების შეცვლისთვის ვქმნით ახალ ფუნქციას
     protected function getWidthandHeight($w, $h, string $originalPath){
+        $image = Image::make($originalPath);
+        $originalWidth = $image->width();
+        $originalHeight = $image->height();
         
+        if(str_ends_with('w', '%')) {
+            $ratioW = (float)str_replace('%', '', $w);
+            $ratioH = $h ? (float)str_replace('%', '', $h) : $ratioW;
+            
+            $newWidth = $originalWidth * $ratioW / 100;
+             $newHeight = $originalHeight * $ratioH / 100;
+        }
+        else{
+            $newWidth = (float)$w;
+            /**
+            * $originalWidth - $newWidth
+            * $originalHeight - $newHeight
+            * -------------------------
+            * $newHeight = $originalHeight * $newWidth/$originalWidth
+            */
+            $newHeight = $h ? (float)$h : ($originalHeight * $newWidth/$originalWidth);
+        }
+        
+        return [$newWidth, $newHeight];
     }
 }
