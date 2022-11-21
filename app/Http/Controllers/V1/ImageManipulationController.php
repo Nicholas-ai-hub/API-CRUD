@@ -72,7 +72,10 @@ class ImageManipulationController extends Controller
             copy($image, $originalPath);
         }
         $data['path'] = $dir . $data['name'];
-
+        $w = $all['w'];
+        $h = $all['h'] ?? false;
+        
+        list($width, $height) = $this->getWidthAndHeight($w, $h, $originalPath);
     }
 
     /**
