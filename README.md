@@ -1,1 +1,1 @@
-With this project you are able to see how to add, update and delete items in Laravel with REST-API.
+With this project you are able to see how to add, update and delete items in Laravel with REST-API, also, upload and resize images.
